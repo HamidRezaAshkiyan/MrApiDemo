@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using MrApiDemo.Controllers;
+using MrApiDemo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,23 +13,12 @@ using System.Threading.Tasks;
 
 namespace MrApiDemo.Pages
 {
-    public class ApiRequest
-    {
-        public string PhoneNumber { get; set; }
-        public string PatternID { get; set; } = "5bc1f3e6-fd7b-4300-aa89-514a299a4e97";
-        public string Token { get; set; } = "c2FuZGJveGFIUjBjRG92TDIxeVlYQnBMbWx5";
-        public string ProjectType { get; set; } = "1";
-
-        public ApiRequest(string phoneNumber)
-        {
-            PhoneNumber = phoneNumber;
-        }
-    }    
 
     public class IndexModel : PageModel
     {
-        static HttpClient client = new HttpClient();
-        public const string APIURL = "http://api.mrapi.ir/sandbox/send";
+        //static HttpClient client = new HttpClient();
+        //public const string APIURL = "http://api.mrapi.ir/sandbox/send";
+        //private const string pNumber = "989389283165";
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)
@@ -35,32 +26,49 @@ namespace MrApiDemo.Pages
             _logger = logger;
         }
 
-        public void OnGet(string phoneNumber)
+        public async Task<IActionResult> OnGetAsync(string phoneNumber)
         {
-
-        }
-
-        public async Task<IActionResult> OnPost(string phoneNumber)
-        {
-            
-            if (ModelState.IsValid)
-            {
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Add("Authentication", "1MWOwEGOmNjN1UWNmFGOhdDM1MTYhBDZ4IWZ0MDNlRjOEVzNxUTQGJjM");
-
-                var response = await client.PostAsJsonAsync(
-                    APIURL, new ApiRequest(phoneNumber));
-                response.EnsureSuccessStatusCode();
-
-
-                return RedirectToPage("Index", phoneNumber);
-            }
-            else
-            {
+            if (phoneNumber == null)
                 return Page();
-            }
+            //var response = HomeController.SendSandboxRequest<SendVerificationCodeModel>(
+            //        HomeController.SandboxSendAPI,
+            //        new SendVerificationCodeModel(phoneNumber)
+            //    );
+
+            HomeController.client.DefaultRequestHeaders.Clear();
+            HomeController.client.DefaultRequestHeaders.Add("Authentication", HomeController.SandboxSecret);
+
+            var response = await HomeController.client.PostAsJsonAsync(
+                HomeController.SandboxSendAPI,
+                new SendVerificationCodeModel(phoneNumber)
+                );
+            response.EnsureSuccessStatusCode();
+
+
+            return RedirectToPage("VerifyPage", phoneNumber);
         }
 
-        
+        //public async Task<IActionResult> OnPost(string phoneNumber, string verificationCode)
+        //{
+        //    HomeController.client.DefaultRequestHeaders.Clear();
+        //    HomeController.client.DefaultRequestHeaders.Add("Authentication", HomeController.SandboxSecret);
+
+        //    var response = await HomeController.client.PostAsJsonAsync(
+        //        HomeController.SandboxSendAPI,
+        //        new VerifyCodeModel(phoneNumber, verificationCode)
+        //        );
+        //    response.EnsureSuccessStatusCode();
+
+        //    return RedirectToPage("Index", response);
+
+        //    //client.DefaultRequestHeaders.Clear();
+        //    //client.DefaultRequestHeaders.Add("Authentication", "1MWOwEGOmNjN1UWNmFGOhdDM1MTYhBDZ4IWZ0MDNlRjOEVzNxUTQGJjM");
+
+        //    //var response = await client.PostAsJsonAsync(
+        //    //    APIURL, new ApiRequest(phoneNumber));
+        //    //response.EnsureSuccessStatusCode();
+
+        //    //return RedirectToPage("Index", phoneNumber);
+        //}
     }
 }

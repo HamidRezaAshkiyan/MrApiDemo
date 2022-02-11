@@ -1,0 +1,27 @@
+﻿@page
+@model MrApiDemo.Pages.VerifyPageModel
+@{
+    var fields = this.Request.QueryString.Value;
+    //var phoneNumber = "989389283165";
+    var phoneNumber = fields.Split("=")[1];
+}
+
+<form method="post">
+    <fieldset>
+        <legend>Enter Code</legend>
+        <div>
+        <label for="PhoneNumber">Phone Number:</label>
+        <input type="text" name="phoneNumber" value="@phoneNumber" />
+        </div>
+          
+        <div>
+        <label for="VerificationCode">Verification Code:</label>
+        <input type="text" placeholder="enter your verification code" name="verificationCode" value="" />
+        </div>
+
+        <div>
+        <label>&nbsp;</label>
+        <input type="submit" value="Submit" class="submit" />
+        </div>
+    </fieldset>
+</form>

@@ -19,12 +19,12 @@
         <title>Customer Form</title>
     </head>
     <body>
-      <form method="post" >
+      <form method="get" >
         <fieldset>
           <legend>Get Phone</legend>
           <div>
             <label for="PhoneNumber">Phone Number:</label>
-            <input type="text" name="PhoneNumber" value="@phoneNumber" />
+            <input type="text" name="phoneNumber" value="@phoneNumber" />
           </div>
 
           <div>
@@ -34,12 +34,18 @@
         </fieldset>
       </form>
 
-      <form method="post" >
+      @*<form method="post">
         <fieldset>
           <legend>Enter Code</legend>
           <div>
+            <label for="PhoneNumber">Phone Number:</label>
+            <input type="text" name="phoneNumber" value="@phoneNumber" />
+          </div>
+          
+          
+          <div>
             <label for="VerificationCode">Verification Code:</label>
-            <input type="text" name="VerificationCode" value="" />
+            <input type="text" name="verificationCode" value="" />
           </div>
 
           <div>
@@ -47,6 +53,6 @@
             <input type="submit" value="Submit" class="submit" />
           </div>
         </fieldset>
-      </form>
+      </form>*@
     </body>
 </html>
