@@ -1,0 +1,52 @@
+﻿@page
+@model IndexModel
+@{
+    //var number = "empty";
+
+    //var test = "";
+    string phoneNumber = "989389283165";
+    
+    //if(this.Request.QueryString != null)
+    var test = this.Request.QueryString.Value;
+}
+
+<p>@test</p>
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Customer Form</title>
+    </head>
+    <body>
+      <form method="post" >
+        <fieldset>
+          <legend>Get Phone</legend>
+          <div>
+            <label for="PhoneNumber">Phone Number:</label>
+            <input type="text" name="PhoneNumber" value="@phoneNumber" />
+          </div>
+
+          <div>
+            <label>&nbsp;</label>
+            <input type="submit" value="Submit" class="submit" />
+          </div>
+        </fieldset>
+      </form>
+
+      <form method="post" >
+        <fieldset>
+          <legend>Enter Code</legend>
+          <div>
+            <label for="VerificationCode">Verification Code:</label>
+            <input type="text" name="VerificationCode" value="" />
+          </div>
+
+          <div>
+            <label>&nbsp;</label>
+            <input type="submit" value="Submit" class="submit" />
+          </div>
+        </fieldset>
+      </form>
+    </body>
+</html>
