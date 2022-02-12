@@ -47,7 +47,7 @@ namespace MrApiDemo.Controllers
             return RedirectToPage("Index", response);
         }
 
-        public async Task<HttpResponseMessage> SendSandboxRequest<T>(string apiUrl, T content)
+        /*public async Task<HttpResponseMessage> SendSandboxRequest<T>(string apiUrl, T content)
         {
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Authentication", SandboxSecret);
@@ -56,6 +56,6 @@ namespace MrApiDemo.Controllers
             response.EnsureSuccessStatusCode();
 
             return response;
-        }
+        }*/
     }
 }

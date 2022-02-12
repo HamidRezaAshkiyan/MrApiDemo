@@ -30,10 +30,6 @@ namespace MrApiDemo.Pages
         {
             if (phoneNumber == null)
                 return Page();
-            //var response = HomeController.SendSandboxRequest<SendVerificationCodeModel>(
-            //        HomeController.SandboxSendAPI,
-            //        new SendVerificationCodeModel(phoneNumber)
-            //    );
 
             HomeController.client.DefaultRequestHeaders.Clear();
             HomeController.client.DefaultRequestHeaders.Add("Authentication", HomeController.SandboxSecret);
@@ -47,28 +43,5 @@ namespace MrApiDemo.Pages
 
             return RedirectToPage("VerifyPage", phoneNumber);
         }
-
-        //public async Task<IActionResult> OnPost(string phoneNumber, string verificationCode)
-        //{
-        //    HomeController.client.DefaultRequestHeaders.Clear();
-        //    HomeController.client.DefaultRequestHeaders.Add("Authentication", HomeController.SandboxSecret);
-
-        //    var response = await HomeController.client.PostAsJsonAsync(
-        //        HomeController.SandboxSendAPI,
-        //        new VerifyCodeModel(phoneNumber, verificationCode)
-        //        );
-        //    response.EnsureSuccessStatusCode();
-
-        //    return RedirectToPage("Index", response);
-
-        //    //client.DefaultRequestHeaders.Clear();
-        //    //client.DefaultRequestHeaders.Add("Authentication", "1MWOwEGOmNjN1UWNmFGOhdDM1MTYhBDZ4IWZ0MDNlRjOEVzNxUTQGJjM");
-
-        //    //var response = await client.PostAsJsonAsync(
-        //    //    APIURL, new ApiRequest(phoneNumber));
-        //    //response.EnsureSuccessStatusCode();
-
-        //    //return RedirectToPage("Index", phoneNumber);
-        //}
     }
 }
